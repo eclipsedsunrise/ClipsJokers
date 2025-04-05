@@ -26,7 +26,7 @@ Uhh.... hi. I'm Clips. I don't really have a social media presence. I can be fou
 - Know It All <br>
 - Jolly Roger <br>
 - Frantic Joker - inside joke. He's just a boy. <br>
-- Sunday In the Park - based on [A Sunday on La Grande Jatte]{https://www.artic.edu/artworks/27992/a-sunday-on-la-grande-jatte-1884}, and the Musical [Sunday in the Park with George] (https://playbill.com/production/sunday-in-the-park-with-george-booth-theatre-vault-0000001686). <br>
+- Sunday In the Park - based on [A Sunday on La Grande Jatte](https://www.artic.edu/artworks/27992/a-sunday-on-la-grande-jatte-1884), and the Musical [Sunday in the Park with George](https://playbill.com/production/sunday-in-the-park-with-george-booth-theatre-vault-0000001686). <br>
 - Drivin' Round <br>
 - Investor - Designed and Drawn by [/u/Imperator_Subira](https://www.reddit.com/user/Imperator_Subira/) <br>
 - Stork - made to celebrate the birth of a Friends' Child. <br>
