@@ -1,0 +1,177 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+# these patches are to trigger the function to reset the 3 gambler cards during cleanup
+
+#I'm putting the entire gambler card function into the common events file because putting it in my
+#common file for the mod didn't seem to activate it.
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+function reset_idol_card()
+    G.GAME.current_round.idol_card.rank = 'Ace'
+    G.GAME.current_round.idol_card.suit = 'Spades'
+    local valid_idol_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' then
+            if not SMODS.has_no_suit(v) and not SMODS.has_no_rank(v) then
+                valid_idol_cards[#valid_idol_cards+1] = v
+            end
+        end
+    end
+    if valid_idol_cards[1] then 
+        local idol_card = pseudorandom_element(valid_idol_cards, pseudoseed('idol'..G.GAME.round_resets.ante))
+        G.GAME.current_round.idol_card.rank = idol_card.base.value
+        G.GAME.current_round.idol_card.suit = idol_card.base.suit
+        G.GAME.current_round.idol_card.id = idol_card.base.id
+    end
+end
+'''
+position = "after"
+match_indent = true
+payload = '''
+function reset_gambler_cards()
+    G.GAME.current_round.gambler_card_1.rank = 'Ace'
+    G.GAME.current_round.gambler_card_2.rank = 'Ace'
+    G.GAME.current_round.gambler_card_3.rank = 'Ace'
+    G.GAME.current_round.gambler_card_1.suit = 'Spades'
+    G.GAME.current_round.gambler_card_2.suit = 'Hearts'
+    G.GAME.current_round.gambler_card_3.suit = 'Diamonds'
+    local valid_gambler_cards = {}
+    for k, v in ipairs(G.playingcards) do
+        if v.ability.effect ~= 'Stone Card' then
+            valid_gambler_cards[#valid_gambler_cards+1] = v
+        end
+    end
+    
+    if valid_gambler_cards[3] then
+        local gambler_card_1 = pseudorandom_element(valid_gambler_cards, pseudoseed('gambler1'..G.GAME.round_resets.ante))
+        G.GAME.current_round.gambler_card_1.rank = gambler_card_1.base.value
+        G.GAME.current_round.gambler_card_1.suit = gambler_card_1.base.suit
+        G.GAME.current_round.gambler_card_1.id = gambler_card_1.base.id
+
+        local gambler_card_2 = pseudorandom_element(valid_gambler_cards, pseudoseed('gambler2'..G.GAME.round_resets.ante))
+        G.GAME.current_round.gambler_card_2.rank = gambler_card_2.base.value
+        G.GAME.current_round.gambler_card_2.suit = gambler_card_2.base.suit
+        G.GAME.current_round.gambler_card_2.id = gambler_card_2.base.id
+
+        local gambler_card_3 = pseudorandom_element(valid_gambler_cards, pseudoseed('gambler3'..G.GAME.round_resets.ante))
+        G.GAME.current_round.gambler_card_3.rank = gambler_card_3.base.value
+        G.GAME.current_round.gambler_card_3.suit = gambler_card_3.base.suit
+        G.GAME.current_round.gambler_card_3.id = gambler_card_3.base.id
+    end
+end
+'''
+#this patch sets up the gambler and initializes the strange loop card at 'king'.
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''
+            cards_flipped = 0,
+'''
+position = "after"
+match_indent = true
+payload = '''
+gambler_card_1 = {suit = 'Spades', rank = 'Ace'},
+gambler_card_2 = {suit = 'Clubs', rank = 'Ace'},
+gambler_card_3 = {suit = 'Hearts', rank = 'Ace'},
+s_loop_card = {rank = 'King', id = 13},
+'''
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+                        if G.GAME.round_resets.temp_handsize then G.hand:change_size(-G.GAME.round_resets.temp_handsize); G.GAME.round_resets.temp_handsize = nil end
+                        if G.GAME.round_resets.temp_reroll_cost then G.GAME.round_resets.temp_reroll_cost = nil; calculate_reroll_cost(true) end
+
+'''
+position = "after"
+match_indent = true
+payload = '''
+reset_gambler_cards()
+'''
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''
+        G.GAME.current_round.discards_left = G.GAME.round_resets.discards
+        G.GAME.current_round.hands_left = G.GAME.round_resets.hands
+        self.deck:shuffle()
+        self.deck:hard_set_T()
+'''
+position = "after"
+match_indent = true
+payload = '''
+reset_gambler_cards()
+'''
+times = 1
+
+# these patches enable the custom card 'colourblind'
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+        if SMODS.has_any_suit(self) and not self.debuff then
+            return true
+        end
+        if next(find_joker('Smeared Joker')) and (self.base.suit == 'Hearts' or self.base.suit == 'Diamonds') == (suit == 'Hearts' or suit == 'Diamonds') then
+            return true
+        end
+'''
+position = "after"
+match_indent = true
+payload = '''
+if next(find_joker('j_clips_colourblind')) and (self.base.suit == 'Clubs' or self.base.suit == 'Diamonds') == (suit == 'Clubs' or suit == 'Diamonds') then
+    return true
+end
+'''
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+        if self.debuff and not bypass_debuff then return end
+        if SMODS.has_no_suit(self) then
+            return false
+        end
+        if SMODS.has_any_suit(self) then
+            return true
+        end
+        if next(find_joker('Smeared Joker')) and (self.base.suit == 'Hearts' or self.base.suit == 'Diamonds') == (suit == 'Hearts' or suit == 'Diamonds') then
+            return true
+        end
+'''
+
+position = "after"
+match_indent = true
+payload = '''
+if next(find_joker('j_clips_colourblind')) and (self.base.suit == 'Clubs' or self.base.suit == 'Diamonds') == (suit == 'Clubs' or suit == 'Diamonds') then
+    return true
+end
+'''
+times = 1
+
+#this patch enables the extra earnings from the 'investor' joker
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+if self.ability.name == 'Golden Joker' then
+            return self.ability.extra
+        end
+'''
+position = "after"
+match_indent = true
+payload = '''
+if self.ability.name == 'j_clips_investor' and G.GAME.chips >= G.GAME.blind.chips * 2 then
+    return self.ability.extra.earn_amt
+end
+'''
+times = 1

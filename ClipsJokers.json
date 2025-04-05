@@ -1,0 +1,16 @@
+{
+    "id": "Clips_Jokers",
+    "name": "Clips Jokers",
+    "display_name": "Clips",
+    "author": ["Kevin"],
+    "description": "Mod by Clips! Art by Clips and Imperator_Subira!",
+    "prefix": "clips",
+    "main_file": "ClipsJokers.lua",
+    "priority": 0,
+    "badge_colour": "08748e",
+    "badge_text_colour": "FFFFFF",
+    "version": "1.0.0",
+    "dependencies" : [
+        "Steamodded (>=1.0.0~ALPHA-1324a)"
+    ]
+}
