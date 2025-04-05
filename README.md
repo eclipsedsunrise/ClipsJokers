@@ -5,7 +5,7 @@ It adds 18 Jokers themed around my friends, and things that I like.
 Requires `steamodded-1.0.0~ALPHA-1324a` or newer - [link](https://github.com/Steamodded/smods/wiki).
 Which itself requires Lovely, a Lua Injector - [link](https://github.com/ethangreen-dev/lovely-injector?tab=readme-ov-file#manual-installation).
 
-You can get the latest stable(ish) version from this projects' Github [Releases].
+You can get the latest stable(ish) version from this projects' Github [Releases](https://github.com/eclipsedsunrise/ClipsJokers/releases).
 Just download and extract the .zip to <br> /%appdata%/Roaming/Balatro/Mods. <br>
 If no 'Mods' folder exists, you can just create it.
 
