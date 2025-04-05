@@ -1,6 +1,5 @@
 ClipsJokers is a Vanilla-Balanced mod for the card game Balatro! <br>
 It adds 18 Jokers themed around my friends, and things that I like. 
-### Bug Report and card function ideas can be submitted here: [Google Form](google.com)
 
 # Installation
 Requires `steamodded-1.0.0~ALPHA-1324a` or newer - [link](https://github.com/Steamodded/smods/wiki).
@@ -33,7 +32,7 @@ Uhh.... hi. I'm Clips. I don't really have a social media presence. I can be fou
 </details>
 
 <details>
-<summary> Uncommon Jokers </summary>
+<summary> Uncommon Jokers </summary> 
 - The Old Master - based on [Jan Six](https://www.rembrandtpaintings.com/jan-six.jsp) by Rembrandt <br>
 - Colourblind - spelled that way because this is a Canadian Game. <br>
 - Stakeholder - Designed and Drawn by [/u/Imperator_Subira](https://www.reddit.com/user/Imperator_Subira/) <br>
@@ -58,7 +57,7 @@ Thanks to everyone in the discord for providing feedback on art and balance as I
 
 ## Programming
 
-The template codebase for this mod was taken from NeatoJokers(https://github.com/neatoqueen/NeatoJokers/releases/latest) <br>
+The template codebase for this mod was taken from [NeatoJokers](https://github.com/neatoqueen/NeatoJokers/releases/latest) <br>
 which was written by **Larswijn** and **Lia_Fr0st**. <br>
 
 Everything original to this mod was coded by me, Clips! 
