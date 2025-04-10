@@ -22,17 +22,17 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         -- The retrigger flag makes sure only the first card is destroyed.
-        if context.before then
+        if context.before 
+        and not self.debuff 
+        and not context.blueprint then
             card.ability.extra.retrigger = false
         end
 
         if context.destroying_card and not context.blueprint then
-            sendDebugMessage("entering the destroy_card context.","MySummerDebugger")
+
             if card.ability.extra.retrigger == false 
             and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                sendDebugMessage("there is space for a consumable card")
                 if pseudorandom('ropes') < (G.GAME.probabilities.normal/card.ability.extra.outof) then
-                    sendDebugMessage("passed the probability check")
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -49,6 +49,8 @@ SMODS.Joker {
                     }
                 end
             end
+            -- disabling the probability check after the first card ensures a 1 in X chance
+            card.ability.extra.retrigger = true
         end
     end
 }
