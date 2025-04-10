@@ -27,9 +27,12 @@ SMODS.Joker {
         end
 
         if context.destroying_card and not context.blueprint then
+            sendDebugMessage("entering the destroy_card context.","MySummerDebugger")
             if card.ability.extra.retrigger == false 
             and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                sendDebugMessage("there is space for a consumable card")
                 if pseudorandom('ropes') < (G.GAME.probabilities.normal/card.ability.extra.outof) then
+                    sendDebugMessage("passed the probability check")
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -42,6 +45,7 @@ SMODS.Joker {
                     card.ability.extra.retrigger = true
                     return {
                         message = localize('k_yar'),
+                        card = card,
                     }
                 end
             end
