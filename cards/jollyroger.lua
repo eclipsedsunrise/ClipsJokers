@@ -22,11 +22,14 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         -- The retrigger flag makes sure only the first card is destroyed.
-        if context.before then
+        if context.before 
+        and not self.debuff 
+        and not context.blueprint then
             card.ability.extra.retrigger = false
         end
 
         if context.destroying_card and not context.blueprint then
+
             if card.ability.extra.retrigger == false 
             and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 if pseudorandom('ropes') < (G.GAME.probabilities.normal/card.ability.extra.outof) then
@@ -42,9 +45,12 @@ SMODS.Joker {
                     card.ability.extra.retrigger = true
                     return {
                         message = localize('k_yar'),
+                        card = card,
                     }
                 end
             end
+            -- disabling the probability check after the first card ensures a 1 in X chance
+            card.ability.extra.retrigger = true
         end
     end
 }

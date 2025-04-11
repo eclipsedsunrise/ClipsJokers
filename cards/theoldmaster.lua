@@ -16,20 +16,19 @@ SMODS.Joker {
     cost = 6,
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.end_of_round then
-            if SMODS.has_enhancement(context.other_card, "m_wild") or
-               SMODS.has_enhancement(context.other_card, "m_steel") or
-               SMODS.has_enhancement(context.other_card, "m_mult") or
-               SMODS.has_enhancement(context.other_card, "m_lucky") or
-               SMODS.has_enhancement(context.other_card,  "m_gold") or
-               SMODS.has_enhancement(context.other_card,  "m_glass") or
-               SMODS.has_enhancement(context.other_card, "m_bonus") then
-                if not context.other_card.debuff and context.other_card:is_face() then
+        if context.individual 
+        and context.cardarea == G.play 
+        and not context.end_of_round 
+        and not self.debuff then
+            local enhancements = SMODS.get_enhancements(context.other_card)
+            
+            if next(enhancements) ~= nil
+            and not context.other_card.debuff 
+            and context.other_card:is_face() then
                     return { 
                         mult = card.ability.extra.mult,
                         dollars = card.ability.extra.earn_amt
                     }
-                end
                end
         end
     end

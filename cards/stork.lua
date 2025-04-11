@@ -15,14 +15,27 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.joker_main 
         and next(context.poker_hands['Pair']) 
-        and not context.debuff
+        and not self.debuff
         and #context.full_hand == 2 then
-            local first_card = context.full_hand[1].base.nominal
-            local second_card = context.full_hand[2].base.nominal
-            return {
-                mult = first_card + second_card,
-                card = card,
-            }
+            local first_card
+            local second_card
+            if not context.full_hand[1].debuff then
+                first_card = context.full_hand[1].base.nominal
+            else
+                first_card = 0
+            end
+            if not context.full_hand[2].debuff then
+                second_card = context.full_hand[2].base.nominal
+            else
+                second_card = 0
+            end
+
+            if first_card + second_card > 0 then --nothing happens if both cards are debuffed
+                return {
+                    mult = first_card + second_card,
+                    card = card,
+                }
+            end
         end
     end
 }
