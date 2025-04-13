@@ -42,8 +42,9 @@ return {
             j_clips_jollyroger = {
                 name = "Jolly Roger",
                 text = {
-                    "{C:green}#1# in #2#{} chance to {C:attention}destroy{} the first card scored.",
-                    "creates a {C:tarot}Tarot{} card.",
+                    "{C:green}#3# in #2#{} chance to",
+                    "{C:attention}destroy{} the first card scored.",
+                    "and create a {C:tarot}Tarot{} card.",
                     "{C:inactive}(must have room)"
                 }
             },
