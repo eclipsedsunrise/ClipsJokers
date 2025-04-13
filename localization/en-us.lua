@@ -43,7 +43,7 @@ return {
                 name = "Jolly Roger",
                 text = {
                     "{C:green}#3# in #2#{} chance to",
-                    "{C:attention}destroy{} the first card scored,",
+                    "{C:attention}destroy{} the first card scored",
                     "and create a {C:tarot}Tarot{} card.",
                     "{C:inactive}(must have room)"
                 }
