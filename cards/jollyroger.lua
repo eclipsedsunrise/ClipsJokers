@@ -23,7 +23,6 @@ SMODS.Joker {
     calculate = function(self, card, context)
         -- The retrigger flag makes sure only the first card is destroyed.
         if context.before 
-        and not self.debuff 
         and not context.blueprint then
             card.ability.extra.retrigger = false
         end
