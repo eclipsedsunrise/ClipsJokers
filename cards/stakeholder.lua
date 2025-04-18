@@ -1,6 +1,6 @@
 SMODS.Joker {
     key = 'stakeholder',
-    config = { extra = { mult = 0, a_mult = 1, earn_flag = nil}},
+    config = { extra = { mult = 0, a_mult = 1, earn_flag = 0}},
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.extra.mult, card.ability.extra.a_mult}}
     end,
@@ -22,9 +22,7 @@ SMODS.Joker {
         -- when cards are scored, gain mult
         if context.cardarea == G.play 
         and not self.debuff 
-        and not context.blueprint 
-        and card.ability.extra.earn_flag ~= nil then
-            if context.individual or context.repetition then
+        and not context.blueprint then
                 if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
                     card.ability.extra.earn_flag = G.GAME.dollar_buffer
                     card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
@@ -35,7 +33,6 @@ SMODS.Joker {
                     }
                 end
             end
-        end
         -- apply the scored mult during main joker scoring loop
         if context.joker_main and card.ability.extra.mult >0 and not self.debuff then
             return {
