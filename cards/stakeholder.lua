@@ -59,7 +59,7 @@ SMODS.Joker {
             if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
                 card.ability.extra.earn_flag = G.GAME.dollar_buffer
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
-                G.E_MANAGER:add_event(Event({func = (function() ; return {
+                G.E_MANAGER:add_event(Event({func = (function() return {
                     message = localize('k_upgrade_ex'),
                     card = card,
                     colour = G.C.RED
