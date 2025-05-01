@@ -114,7 +114,7 @@ return {
                 text = {
                     "At end of round, lose half your",
                     "{C:money}money{}. Gain {X:mult,C:white}x#2#{} Mult per {C:money}$1{} lost",
-                    "{C:inactive}(Currently {X:mult,C:white}x#1#{} {C:inactive}Mult ){}"
+                    "{C:inactive}(Currently {X:mult,C:white}x#1#{} {C:inactive}Mult){}"
                 }
             },
             j_clips_glock = {

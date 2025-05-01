@@ -59,11 +59,26 @@ SMODS.Joker {
             if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
                 card.ability.extra.earn_flag = G.GAME.dollar_buffer
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
-                G.E_MANAGER:add_event(Event({func = (function() return {
+                return {
                     message = localize('k_upgrade_ex'),
                     card = card,
                     colour = G.C.RED
-                } end)}))
+                }
+            end
+        end
+
+        if context.post_trigger
+        and not self.debuff
+        and not context.blueprint
+        and G.GAME.dollar_buffer ~= nil then
+            if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
+                card.ability.extra.earn_flag = G.GAME.dollar_buffer
+                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
+                return {
+                    message = localize('k_upgrade_ex'),
+                    card = card,
+                    colour = G.C.RED
+                }
             end
         end
 
