@@ -22,15 +22,14 @@ SMODS.Joker {
             card.ability.extra.earn_flag = G.GAME.dollar_buffer
         end
         -- when cards are scored, gain mult
-
-        sendDebugMessage("beginning area evaluation code, earn_flag="..tostring(card.ability.extra.earn_flag)..", dollar buffer="..tostring(G.GAME.dollar_buffer),"MySummerDebugger")
-        if context.cardarea == G.play 
-        and (context.pre_joker or context.post_trigger or context.other_joker)
-        and not self.debuff 
+        sendDebugMessage("beginning earning evaluation code, earn_flag="..tostring(card.ability.extra.earn_flag)..", dollar buffer="..tostring(G.GAME.dollar_buffer),"MySummerDebugger")
+        if (context.main_scoring or context.individual or context.post_trigger)
+        and context.cardarea == G.play
+        and not self.debuff
         and not context.blueprint
         and G.GAME.dollar_buffer ~= nil then
             if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
-                sendDebugMessage("in play area context, hit!", "MySummerDebugger")
+                sendDebugMessage("hit!", "MySummerDebugger")
                 card.ability.extra.earn_flag = G.GAME.dollar_buffer
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
                 return {
@@ -40,7 +39,6 @@ SMODS.Joker {
                 }
             end
         end
-
 
         -- apply the scored mult during main joker scoring loop
         if context.joker_main and card.ability.extra.mult > 0 and not self.debuff then
