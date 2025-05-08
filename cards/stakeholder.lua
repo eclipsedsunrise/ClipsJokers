@@ -25,59 +25,12 @@ SMODS.Joker {
 
         sendDebugMessage("beginning area evaluation code, earn_flag="..tostring(card.ability.extra.earn_flag)..", dollar buffer="..tostring(G.GAME.dollar_buffer),"MySummerDebugger")
         if context.cardarea == G.play 
+        and (context.pre_joker or context.post_trigger or context.other_joker)
         and not self.debuff 
         and not context.blueprint
         and G.GAME.dollar_buffer ~= nil then
             if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
-                sendDebugMessage("in play area context", "MySummerDebugger")
-                card.ability.extra.earn_flag = G.GAME.dollar_buffer
-                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
-                return {
-                    message = localize('k_upgrade_ex'),
-                    card = card,
-                    colour = G.C.RED
-                }
-            end
-        end
-
-        if context.pre_joker 
-        and not self.debuff
-        and not context.blueprint
-        and G.GAME.dollar_buffer ~= nil then
-            if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
-                sendDebugMessage("in pre_joker context", "MySummerDebugger")
-                card.ability.extra.earn_flag = G.GAME.dollar_buffer
-                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
-                return {
-                    message = localize('k_upgrade_ex'),
-                    card = card,
-                    colour = G.C.RED
-                }
-            end
-        end
-        
-        if context.other_joker
-        and not self.debuff
-        and not context.blueprint
-        and G.GAME.dollar_buffer ~= nil then
-            if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
-                sendDebugMessage("in other joker context", "MySummerDebugger")
-                card.ability.extra.earn_flag = G.GAME.dollar_buffer
-                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
-                return {
-                    message = localize('k_upgrade_ex'),
-                    card = card,
-                    colour = G.C.RED
-                }
-            end
-        end
-
-        if context.post_trigger
-        and not self.debuff
-        and not context.blueprint
-        and G.GAME.dollar_buffer ~= nil then
-            if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
-                sendDebugMessage("in post trigger context", "MySummerDebugger")
+                sendDebugMessage("in play area context, hit!", "MySummerDebugger")
                 card.ability.extra.earn_flag = G.GAME.dollar_buffer
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
                 return {
