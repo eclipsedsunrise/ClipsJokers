@@ -41,11 +41,19 @@ SMODS.Joker {
             end
         end
 
+
         -- apply the scored mult during main joker scoring loop
         if context.joker_main and card.ability.extra.mult > 0 and not self.debuff then
             return {
                 mult = card.ability.extra.mult,
             }
         end
+
+        if context.after
+        and context.cardarea == G.play 
+        and not context.blueprint then
+            card.ability.extra.earn_flag = 0
+        end
+
     end
 }
