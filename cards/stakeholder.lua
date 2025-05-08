@@ -22,11 +22,14 @@ SMODS.Joker {
             card.ability.extra.earn_flag = G.GAME.dollar_buffer
         end
         -- when cards are scored, gain mult
+
+        sendDebugMessage("beginning area evaluation code, earn_flag="..tostring(card.ability.extra.earn_flag)..", dollar buffer="..tostring(G.GAME.dollar_buffer),"MySummerDebugger")
         if context.cardarea == G.play 
         and not self.debuff 
         and not context.blueprint
         and G.GAME.dollar_buffer ~= nil then
             if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
+                sendDebugMessage("in play area context", "MySummerDebugger")
                 card.ability.extra.earn_flag = G.GAME.dollar_buffer
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
                 return {
@@ -42,6 +45,7 @@ SMODS.Joker {
         and not context.blueprint
         and G.GAME.dollar_buffer ~= nil then
             if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
+                sendDebugMessage("in pre_joker context", "MySummerDebugger")
                 card.ability.extra.earn_flag = G.GAME.dollar_buffer
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
                 return {
@@ -57,6 +61,7 @@ SMODS.Joker {
         and not context.blueprint
         and G.GAME.dollar_buffer ~= nil then
             if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
+                sendDebugMessage("in other joker context", "MySummerDebugger")
                 card.ability.extra.earn_flag = G.GAME.dollar_buffer
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
                 return {
@@ -72,6 +77,7 @@ SMODS.Joker {
         and not context.blueprint
         and G.GAME.dollar_buffer ~= nil then
             if G.GAME.dollar_buffer > card.ability.extra.earn_flag then
+                sendDebugMessage("in post trigger context", "MySummerDebugger")
                 card.ability.extra.earn_flag = G.GAME.dollar_buffer
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.a_mult
                 return {
