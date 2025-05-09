@@ -21,15 +21,16 @@ SMODS.Joker {
         end
         if context.joker_main         
         and not self.debuff then
-            if (next(context.poker_hands['Straight']) or next(context.poker_hands['Straight Flush']))
-            and card.ability.extra.x_mult > 1 then
-                card.ability.extra.x_mult_used = true
-                return {
-                    xmult = card.ability.extra.x_mult,
-                    message = localize("k_riposte"),
-                    colour = G.C.MULT,
-                    card = card,
-                }
+            if (next(context.poker_hands['Straight']) or next(context.poker_hands['Straight Flush'])) then
+                if card.ability.extra.x_mult > 1 then
+                    card.ability.extra.x_mult_used = true
+                    return {
+                        xmult = card.ability.extra.x_mult,
+                        message = localize("k_riposte"),
+                        colour = G.C.MULT,
+                        card = card,
+                    }
+                end
             elseif not context.blueprint then
                 card.ability.extra.x_mult = card.ability.extra.a_x_mult + card.ability.extra.x_mult
                 return {
